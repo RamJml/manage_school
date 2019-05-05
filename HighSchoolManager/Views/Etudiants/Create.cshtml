@@ -1,0 +1,47 @@
+﻿@model HighSchoolManager.Data.Etudiant
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<h2>Create</h2>
+
+<h4>Etudiant</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="Etudiant_nom" class="control-label"></label>
+                <input asp-for="Etudiant_nom" class="form-control" />
+                <span asp-validation-for="Etudiant_nom" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Etudiant_prenom" class="control-label"></label>
+                <input asp-for="Etudiant_prenom" class="form-control" />
+                <span asp-validation-for="Etudiant_prenom" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Etudiant_contact_parent" class="control-label"></label>
+                <input asp-for="Etudiant_contact_parent" class="form-control" />
+                <span asp-validation-for="Etudiant_contact_parent" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Groupe_id_FK" class="control-label"></label>
+                <select asp-for="Groupe_id_FK" class ="form-control" asp-items="ViewBag.Groupe_id_FK"></select>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-default" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

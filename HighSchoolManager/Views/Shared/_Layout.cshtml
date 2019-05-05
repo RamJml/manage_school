@@ -34,8 +34,6 @@
                 
                 <ul class="nav navbar-nav">
                     <li><a asp-area="" asp-controller="Home" asp-action="Index">Home</a></li>
-                    <li><a asp-area="" asp-controller="Home" asp-action="About">About</a></li>
-                    <li><a asp-area="" asp-controller="Home" asp-action="Contact">Contact</a></li>
 
                     <li class="dropdown">
                         <a class="dropdown-toggle" data-toggle="dropdown" href="#">
@@ -44,8 +42,8 @@
                         </a>
                         <ul class="dropdown-menu">
                             <li><a asp-area="" asp-controller="Niveaux" asp-action="Index">Niveaux</a></li>
-                            <li><a asp-area="" asp-controller="Groupes" asp-action="Index">Groupes</a></li>
                             <li><a asp-area="" asp-controller="Options" asp-action="Index">Options</a></li>
+                            <li><a asp-area="" asp-controller="Groupes" asp-action="Index">Groupes</a></li>
                         </ul>
                     </li>
                     <li class="dropdown">
@@ -54,8 +52,8 @@
                             <span class="caret"></span>
                         </a>
                         <ul class="dropdown-menu">
-                            <li><a asp-area="" asp-controller="Matieres" asp-action="Index">Matieres</a></li>
                             <li><a asp-area="" asp-controller="Specialites" asp-action="Index">Specialité</a></li>
+                            <li><a asp-area="" asp-controller="Matieres" asp-action="Index">Matieres</a></li>
                         </ul>
                     </li>
                     <li class="dropdown">
@@ -73,6 +71,16 @@
                     <li><a asp-area="" asp-controller="Absences" asp-action="Index">Absences</a></li>
                     <li><a asp-area="" asp-controller="Seances" asp-action="Index">Seances</a></li>
 
+                    <li class="dropdown">
+                        <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                            Humains
+                            <span class="caret"></span>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a asp-area="" asp-controller="Etudiants" asp-action="Index">Etudiants</a></li>
+                            <li><a asp-area="" asp-controller="Enseignants" asp-action="Index">Enseignants</a></li>
+                        </ul>
+                    </li>
                 </ul>
                 <partial name="_LoginPartial" />
             </div>

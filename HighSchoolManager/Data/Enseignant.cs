@@ -8,9 +8,11 @@ using System.Threading.Tasks;
 
 namespace HighSchoolManager.Data
 {
-    public class Enseignant:IdentityUser
+    public class Enseignant
     {
-        
+        [Key]
+        public string Id{ get; set; }
+
         public string Enseignant_nom { get; set; }
         public string Enseignant_prenom { get; set; }
 

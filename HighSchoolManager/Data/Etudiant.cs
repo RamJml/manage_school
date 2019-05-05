@@ -8,8 +8,10 @@ using System.Threading.Tasks;
 
 namespace HighSchoolManager.Data
 {
-    public class Etudiant :IdentityUser
+    public class Etudiant
     {
+        [Key]
+        public string Id { get; set; }
         public string Etudiant_nom { get; set; }
         public string Etudiant_prenom { get; set; }
         public string Etudiant_contact_parent { get; set; }

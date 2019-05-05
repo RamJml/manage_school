@@ -18,7 +18,7 @@
             <th>
                 @Html.DisplayNameFor(model => model.Ref_Option)
             </th>
-            <th></th>
+            <th>Actions</th>
         </tr>
     </thead>
     <tbody>
@@ -28,7 +28,7 @@
                 @Html.DisplayFor(modelItem => item.Groupe_designation)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Ref_Option.Option_id)
+                @Html.DisplayFor(modelItem => item.Ref_Option.Option_designation)/@Html.DisplayFor(modelItem => item.Ref_Option.Ref_Niveau.Niveau_designation)
             </td>
             <td>
                 <a asp-action="Edit" asp-route-id="@item.Groupe_id">Edit</a> |

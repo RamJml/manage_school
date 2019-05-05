@@ -21,7 +21,7 @@ namespace HighSchoolManager.Controllers
         // GET: Equippements
         public async Task<IActionResult> Index()
         {
-            var applicationDbContext = _context.Equippement.Include(e => e.Ref_TypeEquippement);
+            var applicationDbContext = _context.Equippement.Include(e => e.Ref_Salle_equip).Include(e => e.Ref_TypeEquippement);
             return View(await applicationDbContext.ToListAsync());
         }
 
@@ -34,6 +34,7 @@ namespace HighSchoolManager.Controllers
             }
 
             var equippement = await _context.Equippement
+                .Include(e => e.Ref_Salle_equip)
                 .Include(e => e.Ref_TypeEquippement)
                 .FirstOrDefaultAsync(m => m.Equippement_id == id);
             if (equippement == null)
@@ -47,7 +48,8 @@ namespace HighSchoolManager.Controllers
         // GET: Equippements/Create
         public IActionResult Create()
         {
-            ViewData["TypeEquippement_id_FK"] = new SelectList(_context.Set<TypeEquippement>(), "Type_Equippement_id", "Type_Equippement_id");
+            ViewData["Salle_id_FK_equip"] = new SelectList(_context.Salle, "Salle_id", "Salle_id");
+            ViewData["TypeEquippement_id_FK"] = new SelectList(_context.TypeEquippement, "Type_Equippement_id", "Type_Equippement_id");
             return View();
         }
 
@@ -56,7 +58,7 @@ namespace HighSchoolManager.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Equippement_id,Equippement_designation,TypeEquippement_id_FK")] Equippement equippement)
+        public async Task<IActionResult> Create([Bind("Equippement_id,Equippement_designation,TypeEquippement_id_FK,Salle_id_FK_equip")] Equippement equippement)
         {
             if (ModelState.IsValid)
             {
@@ -64,7 +66,8 @@ namespace HighSchoolManager.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["TypeEquippement_id_FK"] = new SelectList(_context.Set<TypeEquippement>(), "Type_Equippement_id", "Type_Equippement_id", equippement.TypeEquippement_id_FK);
+            ViewData["Salle_id_FK_equip"] = new SelectList(_context.Salle, "Salle_id", "Salle_id", equippement.Salle_id_FK_equip);
+            ViewData["TypeEquippement_id_FK"] = new SelectList(_context.TypeEquippement, "Type_Equippement_id", "Type_Equippement_id", equippement.TypeEquippement_id_FK);
             return View(equippement);
         }
 
@@ -81,7 +84,8 @@ namespace HighSchoolManager.Controllers
             {
                 return NotFound();
             }
-            ViewData["TypeEquippement_id_FK"] = new SelectList(_context.Set<TypeEquippement>(), "Type_Equippement_id", "Type_Equippement_id", equippement.TypeEquippement_id_FK);
+            ViewData["Salle_id_FK_equip"] = new SelectList(_context.Salle, "Salle_id", "Salle_id", equippement.Salle_id_FK_equip);
+            ViewData["TypeEquippement_id_FK"] = new SelectList(_context.TypeEquippement, "Type_Equippement_id", "Type_Equippement_id", equippement.TypeEquippement_id_FK);
             return View(equippement);
         }
 
@@ -90,7 +94,7 @@ namespace HighSchoolManager.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Equippement_id,Equippement_designation,TypeEquippement_id_FK")] Equippement equippement)
+        public async Task<IActionResult> Edit(int id, [Bind("Equippement_id,Equippement_designation,TypeEquippement_id_FK,Salle_id_FK_equip")] Equippement equippement)
         {
             if (id != equippement.Equippement_id)
             {
@@ -117,7 +121,8 @@ namespace HighSchoolManager.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["TypeEquippement_id_FK"] = new SelectList(_context.Set<TypeEquippement>(), "Type_Equippement_id", "Type_Equippement_id", equippement.TypeEquippement_id_FK);
+            ViewData["Salle_id_FK_equip"] = new SelectList(_context.Salle, "Salle_id", "Salle_id", equippement.Salle_id_FK_equip);
+            ViewData["TypeEquippement_id_FK"] = new SelectList(_context.TypeEquippement, "Type_Equippement_id", "Type_Equippement_id", equippement.TypeEquippement_id_FK);
             return View(equippement);
         }
 
@@ -130,6 +135,7 @@ namespace HighSchoolManager.Controllers
             }
 
             var equippement = await _context.Equippement
+                .Include(e => e.Ref_Salle_equip)
                 .Include(e => e.Ref_TypeEquippement)
                 .FirstOrDefaultAsync(m => m.Equippement_id == id);
             if (equippement == null)

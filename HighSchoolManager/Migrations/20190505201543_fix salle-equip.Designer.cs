@@ -4,14 +4,16 @@ using HighSchoolManager.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace HighSchoolManager.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20190505201543_fix salle-equip")]
+    partial class fixsalleequip
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -38,24 +40,6 @@ namespace HighSchoolManager.Migrations
                     b.ToTable("Absence");
                 });
 
-            modelBuilder.Entity("HighSchoolManager.Data.Enseignant", b =>
-                {
-                    b.Property<string>("Id")
-                        .ValueGeneratedOnAdd();
-
-                    b.Property<string>("Enseignant_nom");
-
-                    b.Property<string>("Enseignant_prenom");
-
-                    b.Property<int>("Specialite_id_FK");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("Specialite_id_FK");
-
-                    b.ToTable("Enseignant");
-                });
-
             modelBuilder.Entity("HighSchoolManager.Data.Equippement", b =>
                 {
                     b.Property<int>("Equippement_id")
@@ -75,26 +59,6 @@ namespace HighSchoolManager.Migrations
                     b.HasIndex("TypeEquippement_id_FK");
 
                     b.ToTable("Equippement");
-                });
-
-            modelBuilder.Entity("HighSchoolManager.Data.Etudiant", b =>
-                {
-                    b.Property<string>("Id")
-                        .ValueGeneratedOnAdd();
-
-                    b.Property<string>("Etudiant_contact_parent");
-
-                    b.Property<string>("Etudiant_nom");
-
-                    b.Property<string>("Etudiant_prenom");
-
-                    b.Property<int>("Groupe_id_FK");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("Groupe_id_FK");
-
-                    b.ToTable("Etudiant");
                 });
 
             modelBuilder.Entity("HighSchoolManager.Data.Groupe", b =>
@@ -304,6 +268,9 @@ namespace HighSchoolManager.Migrations
                     b.Property<string>("ConcurrencyStamp")
                         .IsConcurrencyToken();
 
+                    b.Property<string>("Discriminator")
+                        .IsRequired();
+
                     b.Property<string>("Email")
                         .HasMaxLength(256);
 
@@ -343,6 +310,8 @@ namespace HighSchoolManager.Migrations
                         .HasFilter("[NormalizedUserName] IS NOT NULL");
 
                     b.ToTable("AspNetUsers");
+
+                    b.HasDiscriminator<string>("Discriminator").HasValue("IdentityUser");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<string>", b =>
@@ -415,6 +384,42 @@ namespace HighSchoolManager.Migrations
                     b.ToTable("AspNetUserTokens");
                 });
 
+            modelBuilder.Entity("HighSchoolManager.Data.Enseignant", b =>
+                {
+                    b.HasBaseType("Microsoft.AspNetCore.Identity.IdentityUser");
+
+                    b.Property<string>("Enseignant_nom");
+
+                    b.Property<string>("Enseignant_prenom");
+
+                    b.Property<int>("Specialite_id_FK");
+
+                    b.HasIndex("Specialite_id_FK");
+
+                    b.ToTable("Enseignant");
+
+                    b.HasDiscriminator().HasValue("Enseignant");
+                });
+
+            modelBuilder.Entity("HighSchoolManager.Data.Etudiant", b =>
+                {
+                    b.HasBaseType("Microsoft.AspNetCore.Identity.IdentityUser");
+
+                    b.Property<string>("Etudiant_contact_parent");
+
+                    b.Property<string>("Etudiant_nom");
+
+                    b.Property<string>("Etudiant_prenom");
+
+                    b.Property<int>("Groupe_id_FK");
+
+                    b.HasIndex("Groupe_id_FK");
+
+                    b.ToTable("Etudiant");
+
+                    b.HasDiscriminator().HasValue("Etudiant");
+                });
+
             modelBuilder.Entity("HighSchoolManager.Data.Absence", b =>
                 {
                     b.HasOne("HighSchoolManager.Data.Etudiant", "Ref_Etudiant")
@@ -424,14 +429,6 @@ namespace HighSchoolManager.Migrations
                     b.HasOne("HighSchoolManager.Data.Seance", "Ref_Seance")
                         .WithMany()
                         .HasForeignKey("Seance_FK")
-                        .OnDelete(DeleteBehavior.Cascade);
-                });
-
-            modelBuilder.Entity("HighSchoolManager.Data.Enseignant", b =>
-                {
-                    b.HasOne("HighSchoolManager.Data.Specialite", "Ref_Specialite")
-                        .WithMany("Enseignant_Specialite")
-                        .HasForeignKey("Specialite_id_FK")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 
@@ -445,14 +442,6 @@ namespace HighSchoolManager.Migrations
                     b.HasOne("HighSchoolManager.Data.TypeEquippement", "Ref_TypeEquippement")
                         .WithMany()
                         .HasForeignKey("TypeEquippement_id_FK")
-                        .OnDelete(DeleteBehavior.Cascade);
-                });
-
-            modelBuilder.Entity("HighSchoolManager.Data.Etudiant", b =>
-                {
-                    b.HasOne("HighSchoolManager.Data.Groupe", "Ref_Groupe")
-                        .WithMany()
-                        .HasForeignKey("Groupe_id_FK")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 
@@ -564,6 +553,22 @@ namespace HighSchoolManager.Migrations
                     b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser")
                         .WithMany()
                         .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("HighSchoolManager.Data.Enseignant", b =>
+                {
+                    b.HasOne("HighSchoolManager.Data.Specialite", "Ref_Specialite")
+                        .WithMany("Enseignant_Specialite")
+                        .HasForeignKey("Specialite_id_FK")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("HighSchoolManager.Data.Etudiant", b =>
+                {
+                    b.HasOne("HighSchoolManager.Data.Groupe", "Ref_Groupe")
+                        .WithMany()
+                        .HasForeignKey("Groupe_id_FK")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 #pragma warning restore 612, 618

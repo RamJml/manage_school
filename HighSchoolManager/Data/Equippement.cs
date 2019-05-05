@@ -18,5 +18,9 @@ namespace HighSchoolManager.Data
         public int TypeEquippement_id_FK { get; set; }
         [ForeignKey("TypeEquippement_id_FK")]
         public TypeEquippement Ref_TypeEquippement { get; set; }
+
+        public int Salle_id_FK_equip { get; set; }
+        [ForeignKey("Salle_id_FK_equip")]
+        public Salle Ref_Salle_equip { get; set; }
     }
 }

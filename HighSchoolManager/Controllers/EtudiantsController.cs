@@ -9,90 +9,90 @@ using HighSchoolManager.Data;
 
 namespace HighSchoolManager.Controllers
 {
-    public class MatieresController : Controller
+    public class EtudiantsController : Controller
     {
         private readonly ApplicationDbContext _context;
 
-        public MatieresController(ApplicationDbContext context)
+        public EtudiantsController(ApplicationDbContext context)
         {
             _context = context;
         }
 
-        // GET: Matieres
+        // GET: Etudiants
         public async Task<IActionResult> Index()
         {
-            var applicationDbContext = _context.Matiere.Include(m => m.Ref_Specialite);
+            var applicationDbContext = _context.Etudiant.Include(e => e.Ref_Groupe);
             return View(await applicationDbContext.ToListAsync());
         }
 
-        // GET: Matieres/Details/5
-        public async Task<IActionResult> Details(int? id)
+        // GET: Etudiants/Details/5
+        public async Task<IActionResult> Details(string id)
         {
             if (id == null)
             {
                 return NotFound();
             }
 
-            var matiere = await _context.Matiere
-                .Include(m => m.Ref_Specialite)
-                .FirstOrDefaultAsync(m => m.Matiere_id == id);
-            if (matiere == null)
+            var etudiant = await _context.Etudiant
+                .Include(e => e.Ref_Groupe)
+                .FirstOrDefaultAsync(m => m.Id == id);
+            if (etudiant == null)
             {
                 return NotFound();
             }
 
-            return View(matiere);
+            return View(etudiant);
         }
 
-        // GET: Matieres/Create
+        // GET: Etudiants/Create
         public IActionResult Create()
         {
-            ViewData["Specialite_id_FK"] = new SelectList(_context.Specialite, "Specialite_id", "Specialite_designation");
+            ViewData["Groupe_id_FK"] = new SelectList(_context.Groupes, "Groupe_id", "Groupe_id");
             return View();
         }
 
-        // POST: Matieres/Create
+        // POST: Etudiants/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Matiere_id,Matiere_designation,Specialite_id_FK")] Matiere matiere)
+        public async Task<IActionResult> Create([Bind("Id,Etudiant_nom,Etudiant_prenom,Etudiant_contact_parent,Groupe_id_FK")] Etudiant etudiant)
         {
             if (ModelState.IsValid)
             {
-                _context.Add(matiere);
+                _context.Add(etudiant);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["Specialite_id_FK"] = new SelectList(_context.Specialite, "Specialite_id", "Specialite_id", matiere.Specialite_id_FK);
-            return View(matiere);
+            ViewData["Groupe_id_FK"] = new SelectList(_context.Groupes, "Groupe_id", "Groupe_id", etudiant.Groupe_id_FK);
+            return View(etudiant);
         }
 
-        // GET: Matieres/Edit/5
-        public async Task<IActionResult> Edit(int? id)
+        // GET: Etudiants/Edit/5
+        public async Task<IActionResult> Edit(string id)
         {
             if (id == null)
             {
                 return NotFound();
             }
 
-            var matiere = await _context.Matiere.FindAsync(id);
-            if (matiere == null)
+            var etudiant = await _context.Etudiant.FindAsync(id);
+            if (etudiant == null)
             {
                 return NotFound();
             }
-            ViewData["Specialite_id_FK"] = new SelectList(_context.Specialite, "Specialite_id", "Specialite_id", matiere.Specialite_id_FK);
-            return View(matiere);
+            ViewData["Groupe_id_FK"] = new SelectList(_context.Groupes, "Groupe_id", "Groupe_id", etudiant.Groupe_id_FK);
+            return View(etudiant);
         }
 
-        // POST: Matieres/Edit/5
+        // POST: Etudiants/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Matiere_id,Matiere_designation,Specialite_id_FK")] Matiere matiere)
+        public async Task<IActionResult> Edit(string id, [Bind("Id,Etudiant_nom,Etudiant_prenom,Etudiant_contact_parent,Groupe_id_FK")] Etudiant etudiant)
         {
-            if (id != matiere.Matiere_id)
+            if (id != etudiant.Id)
             {
                 return NotFound();
             }
@@ -101,12 +101,12 @@ namespace HighSchoolManager.Controllers
             {
                 try
                 {
-                    _context.Update(matiere);
+                    _context.Update(etudiant);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!MatiereExists(matiere.Matiere_id))
+                    if (!EtudiantExists(etudiant.Id))
                     {
                         return NotFound();
                     }
@@ -117,43 +117,43 @@ namespace HighSchoolManager.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["Specialite_id_FK"] = new SelectList(_context.Specialite, "Specialite_id", "Specialite_id", matiere.Specialite_id_FK);
-            return View(matiere);
+            ViewData["Groupe_id_FK"] = new SelectList(_context.Groupes, "Groupe_id", "Groupe_id", etudiant.Groupe_id_FK);
+            return View(etudiant);
         }
 
-        // GET: Matieres/Delete/5
-        public async Task<IActionResult> Delete(int? id)
+        // GET: Etudiants/Delete/5
+        public async Task<IActionResult> Delete(string id)
         {
             if (id == null)
             {
                 return NotFound();
             }
 
-            var matiere = await _context.Matiere
-                .Include(m => m.Ref_Specialite)
-                .FirstOrDefaultAsync(m => m.Matiere_id == id);
-            if (matiere == null)
+            var etudiant = await _context.Etudiant
+                .Include(e => e.Ref_Groupe)
+                .FirstOrDefaultAsync(m => m.Id == id);
+            if (etudiant == null)
             {
                 return NotFound();
             }
 
-            return View(matiere);
+            return View(etudiant);
         }
 
-        // POST: Matieres/Delete/5
+        // POST: Etudiants/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(int id)
+        public async Task<IActionResult> DeleteConfirmed(string id)
         {
-            var matiere = await _context.Matiere.FindAsync(id);
-            _context.Matiere.Remove(matiere);
+            var etudiant = await _context.Etudiant.FindAsync(id);
+            _context.Etudiant.Remove(etudiant);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
-        private bool MatiereExists(int id)
+        private bool EtudiantExists(string id)
         {
-            return _context.Matiere.Any(e => e.Matiere_id == id);
+            return _context.Etudiant.Any(e => e.Id == id);
         }
     }
 }

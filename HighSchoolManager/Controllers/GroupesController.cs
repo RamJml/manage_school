@@ -21,7 +21,7 @@ namespace HighSchoolManager.Controllers
         // GET: Groupes
         public async Task<IActionResult> Index()
         {
-            var applicationDbContext = _context.Groupes.Include(g => g.Ref_Option);
+            var applicationDbContext = _context.Groupes.Include(g => g.Ref_Option).Include(e=>e.Ref_Option.Ref_Niveau);
             return View(await applicationDbContext.ToListAsync());
         }
 

@@ -1,0 +1,36 @@
+﻿@model HighSchoolManager.Data.Enseignant
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Enseignant</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Enseignant_nom)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Enseignant_nom)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Enseignant_prenom)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Enseignant_prenom)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Ref_Specialite)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Ref_Specialite.Specialite_id)
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-action="Edit" asp-route-id="@Model.Id">Edit</a> |
+    <a asp-action="Index">Back to List</a>
+</div>

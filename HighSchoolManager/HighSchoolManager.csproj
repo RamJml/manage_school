@@ -6,27 +6,20 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Microsoft.AspNetCore.App" />
-    <PackageReference Include="Microsoft.AspNetCore.Razor.Design" Version="2.1.2" PrivateAssets="All" />
-    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="2.1.7" PrivateAssets="All" />
+    <Compile Remove="Migrations\20190505201241_fix salle-equip.cs" />
+    <Compile Remove="Migrations\20190505201241_fix salle-equip.Designer.cs" />
+    <Compile Remove="Migrations\20190505201342_fix salle-equip2.cs" />
+    <Compile Remove="Migrations\20190505201342_fix salle-equip2.Designer.cs" />
+    <Compile Remove="Migrations\20190505201444_fix salle-equip3.cs" />
+    <Compile Remove="Migrations\20190505201444_fix salle-equip3.Designer.cs" />
+    <Compile Remove="Migrations\20190505201515_fix salle-equip.cs" />
+    <Compile Remove="Migrations\20190505201515_fix salle-equip.Designer.cs" />
   </ItemGroup>
 
   <ItemGroup>
-    <Content Update="Views\Enseignant\Create.cshtml">
-      <Pack>$(IncludeRazorContentInPack)</Pack>
-    </Content>
-    <Content Update="Views\Enseignant\Delete.cshtml">
-      <Pack>$(IncludeRazorContentInPack)</Pack>
-    </Content>
-    <Content Update="Views\Enseignant\Details.cshtml">
-      <Pack>$(IncludeRazorContentInPack)</Pack>
-    </Content>
-    <Content Update="Views\Enseignant\Edit.cshtml">
-      <Pack>$(IncludeRazorContentInPack)</Pack>
-    </Content>
-    <Content Update="Views\Enseignant\Index.cshtml">
-      <Pack>$(IncludeRazorContentInPack)</Pack>
-    </Content>
+    <PackageReference Include="Microsoft.AspNetCore.App" />
+    <PackageReference Include="Microsoft.AspNetCore.Razor.Design" Version="2.1.2" PrivateAssets="All" />
+    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="2.1.9" PrivateAssets="All" />
   </ItemGroup>
 
   <ItemGroup>

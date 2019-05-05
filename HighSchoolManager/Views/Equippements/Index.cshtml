@@ -18,6 +18,9 @@
             <th>
                 @Html.DisplayNameFor(model => model.Ref_TypeEquippement)
             </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Ref_Salle_equip)
+            </th>
             <th></th>
         </tr>
     </thead>
@@ -29,6 +32,9 @@
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Ref_TypeEquippement.Type_Equippement_id)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Ref_Salle_equip.Salle_id)
             </td>
             <td>
                 <a asp-action="Edit" asp-route-id="@item.Equippement_id">Edit</a> |

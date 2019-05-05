@@ -50,6 +50,9 @@ namespace HighSchoolManager.Controllers
         // GET: Seances/Create
         public IActionResult Create()
         {
+
+            ViewData["Seance_Jour"] = new SelectList(ApplicationDbContext.Jours);
+            ViewData["Seance_Heure"] = new SelectList(ApplicationDbContext.Horaire);
             ViewData["Enseignant_id_FK"] = new SelectList(_context.Enseignant, "Id", "Id");
             ViewData["Groupe_id_FK"] = new SelectList(_context.Groupes, "Groupe_id", "Groupe_id");
             ViewData["Matiere_id_FK"] = new SelectList(_context.Matiere, "Matiere_id", "Matiere_id");
