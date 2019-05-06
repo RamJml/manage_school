@@ -9,6 +9,22 @@ using HighSchoolManager.Data;
 
 namespace HighSchoolManager.Controllers
 {
+    class combinaison_mat_prof_jour_heure
+    {
+        public int prof_id { get; set; }
+        public int mat_id { get; set; }
+        public int jour_index { get; set; }
+        public int heure_index { get; set; }
+
+    }
+    class combinaison_salle_jour_heure
+    {
+        public int salle_id { get; set; }
+        public int jour_index { get; set; }
+        public int heure_index { get; set; }
+
+    }
+
     public class SeancesController : Controller
     {
         private readonly ApplicationDbContext _context;
@@ -58,6 +74,17 @@ namespace HighSchoolManager.Controllers
             ViewData["Matiere_id_FK"] = new SelectList(_context.Matiere, "Matiere_id", "Matiere_id");
             ViewData["Salle_id_FK"] = new SelectList(_context.Salle, "Salle_id", "Salle_id");
             return View();
+        }
+
+        // GET: Seances/Rebelote
+        [HttpGet("Seances/Rebelote")]
+        public async Task<IActionResult> RebeloteAsync()
+        {
+            var all_seance = _context.Seance.Include(s => s.Ref_Enseignant).Include(s => s.Ref_Groupe).Include(s => s.Ref_Matiere).Include(s => s.Ref_Salle);
+
+            var e = all_seance.Skip(2).FirstOrDefault();
+            var x = all_seance.Where(r => (r.Seance_id <= e.Seance_id));
+            return View("Index",x);
         }
 
         // POST: Seances/Create

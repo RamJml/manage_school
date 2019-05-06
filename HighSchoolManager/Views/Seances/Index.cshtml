@@ -9,6 +9,10 @@
 <p>
     <a asp-action="Create">Create New</a>
 </p>
+<div class="row">
+<a asp-action="Rebelote" class="btn btn-danger col-xs-2 col-xs-offset-10">Re-Organiser les Séances</a> 
+</div>
+
 <table class="table">
     <thead>
         <tr>
@@ -34,32 +38,33 @@
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Seance_Jour)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Seance_Heure)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Ref_Enseignant.Id)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Ref_Matiere.Matiere_id)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Ref_Salle.Salle_id)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Ref_Groupe.Groupe_id)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.Seance_id">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.Seance_id">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.Seance_id">Delete</a>
-            </td>
-        </tr>
-}
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Seance_Jour)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Seance_Heure)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Ref_Enseignant.Id)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Ref_Matiere.Matiere_id)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Ref_Salle.Salle_id)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Ref_Groupe.Groupe_id)
+                </td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.Seance_id">Edit</a> |
+                    <a asp-action="Details" asp-route-id="@item.Seance_id">Details</a> |
+                    <a asp-action="Delete" asp-route-id="@item.Seance_id">Delete</a>
+                </td>
+            </tr>
+        }
     </tbody>
 </table>
